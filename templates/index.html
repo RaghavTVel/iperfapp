@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<title>
+The iperf bits-per-second app
+</title>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="http://code.angularjs.org/1.5.3/angular-route.min.js"></script>
+<script src="/static/js/app.js"></script>
+</head>
+
+<body ng-app="iperfApp">
+
+<form name="form" ng-submit="sendingIPs()" ng-controller="sendIPs">
+    <div>
+    Server IP: <input type="text" ng-model="serverIP" name="serverIP" />
+    </div>
+    <div>
+    Server Port: <input type="text" ng-model="serverPORT" name="serverPORT" />
+    </div>
+    <div>
+    <button type="submit" class="btn btn-danger" ng-click="output.status='Connecting..';output.ulspeed='';output.dlspeed=''">Calculate Bits Per Second!</button>
+    </div>
+	<div ng-model="output" name="output">
+	<br>
+	<h4>{{output.status}}</h4>
+	<br>
+	<h4>Bits per second from client to server: {{output.ulspeed}}</h4>
+	<br>
+	<h4>Bits per second from server to client: {{output.dlspeed}}</h4>
+	<br>
+	</div>
+</form>
+
+<br>
+<br>
+<br>
+<br>
+
+<form name="form" ng-submit="gettingHistory()" ng-controller="getHistory">
+<button type="submit" class="btn btn-danger" ng-click="historylist.state='Connecting..'">View History of Bits Per Seconds in Table Below!</button>
+<div ng-model="historylist" name="historylist">
+<br>
+<h4>{{historylist.state}}</h4>
+<br>
+<br>
+<table border="1">
+<tr>
+<td>Timestamp</td>
+<td>Server IP</td>
+<td>Server Port</td>
+<td>Server to Client Bits Per Second</td>
+<td>Client to Server Bits Per Second</td>
+</tr>
+<tr ng-repeat="x in historylist.historylist">
+<td>{{x.timestamp}}</td>
+<td>{{x.server_ip}}</td>
+<td>{{x.server_port}}</td>
+<td>{{x.throughput_dl}}</td>
+<td>{{x.throughput_ul}}</td>
+</tr>
+</table>
+</div>
+</form>
+</body>
+</html>
